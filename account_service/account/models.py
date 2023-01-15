@@ -7,12 +7,12 @@ from .validators import AccountValidator
 class Account(models.Model):
     """A database model of Bank Account"""
 
-    id = models.CharField(
+    user_id = models.CharField(
         primary_key=True, default=uuid.uuid4, editable=False, max_length=2000
     )
     account_number = models.CharField(max_length=200)
     name = models.CharField(max_length=25)
-    deposit_amount = models.FloatField(
+    total_balance = models.FloatField(
         validators=[AccountValidator.validate_inital_deposit]
     )
     phone_number = models.CharField(max_length=30)

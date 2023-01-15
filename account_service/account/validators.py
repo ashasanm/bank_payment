@@ -13,8 +13,7 @@ class AccountValidator:
         """Validate intial account deposit"""
         if value < DepositAmountEnum.DEPOSIT_MINIMUM.value:
             raise LowInitalDeposit()
-        else:
-            return value
+        return value
 
     @classmethod
     def validate_tax_id(cls, value):
