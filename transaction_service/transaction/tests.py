@@ -1,3 +1,6 @@
+"""Module to test Transaction API
+    Note: Replace user id in TRANSACTION PAYLOAD with existing account user id
+"""
 import json
 
 from django.urls import reverse
