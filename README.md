@@ -45,11 +45,11 @@ to run this docker required to be installed
         "total_balance": 5000.0,
         "deposit_amount": 5000.0,
         "account_number": "085329928888105610",
-        "name": "Ghozali M",
+        "name": "My Name",
         "phone_number": "085329928888",
         "tax_id": "105610",
-        "email_address": "ghoza@gmail.com",
-        "address": "jalan samirono"
+        "email_address": "email@email.com",
+        "address": "my address"
       }
       
 ### Get Account Balance
@@ -63,10 +63,10 @@ to run this docker required to be installed
 #### Response
       {
         "total balance": 9999.0,
-        "name": "Hasan 2",
-        "email": "hasan@gmail.com",
-        "address": "jalan samirono",
-        "phone_number": "085320498224"
+        "name": "My Name",
+        "email": "email@gmail.com",
+        "address": "my address",
+        "phone_number": "08532323232"
       }
       
 ### Withdraw
@@ -84,8 +84,8 @@ to run this docker required to be installed
         "status_code": 200,
         "previous_balance": 69988.79999999997,
         "user_id": "c16365f9-c8e7-4bee-aa9b-0f47682241f5",
-        "account_number": "085320498224212131",
-        "name": "Hasan 2",
+        "account_number": "08976363632",
+        "name": "My Name",
         "total_balance": 69178.79999999997,
         "transaction_type": "withdraw",
         "transaction_amount": 800
@@ -106,8 +106,8 @@ to run this docker required to be installed
         "status_code": 200,
         "previous_balance": 69988.79999999997,
         "user_id": "c16365f9-c8e7-4bee-aa9b-0f47682241f5",
-        "account_number": "085320498224212131",
-        "name": "Hasan 2",
+        "account_number": "087626236356",
+        "name": "My Name",
         "total_balance": 69178.79999999997,
         "transaction_type": "withdraw",
         "transaction_amount": 800
