@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .exceptions import WrongUserId, LowBalance
+from .exceptions import WrongUserId, LowBalance, AlreadyExist, LowInitalDeposit
 from .models import Account
 from .serializers import (
     AccountBalanceSerializer,
@@ -49,6 +49,10 @@ class AccountView(APIView, AccountUtils):
                 create_response.update(serializer.data)
                 return Response(create_response, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except LowInitalDeposit as err:
+            return Response(err.default_detail, status=err.status_code)
+        except AlreadyExist as err:
+            return Response(err.default_detail, status=err.status_code)
         except Exception as err:
             error_response = {"msg": "Internal Server Error", "error": str(err)}
             return Response(
