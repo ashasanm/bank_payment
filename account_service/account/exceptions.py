@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.exceptions import APIException
 
-from .enums import DepositAmountEnum
+from .enums import DepositAmountEnum, BalanceEnum
 
 
 class AlreadyExist(APIException):
@@ -26,6 +26,17 @@ class InvalidTaxId(APIException):
         "status_code": status.HTTP_400_BAD_REQUEST,
     }
     default_code = "invalid_tax_id_length"
+
+class LowBalance(APIException):
+    """Exception handler for maximum decimal number exceed maximum"""
+
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = {
+        "msg": f"You cannot withdraw with balance lower than {BalanceEnum.MINIMUM_BALANCE.value}",
+        "code": "low_balance",
+        "status_code": status.HTTP_400_BAD_REQUEST,
+    }
+    default_code = "low_balance"
 
 
 class LowInitalDeposit(APIException):

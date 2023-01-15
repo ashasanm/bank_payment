@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .exceptions import WrongUserId
+from .exceptions import WrongUserId, LowBalance
 from .models import Account
 from .serializers import (
     AccountBalanceSerializer,
@@ -66,7 +66,7 @@ class BalanceView(APIView):
     update_serializer = BalanceUpdateSerializer
     account_serializer = AccountBalanceSerializer
 
-    def get_queryset(self, account_id) -> object:
+    def get_queryset(self, account_id: str) -> object:
         """Function to get Queryset of Account"""
         try:
             account = Account.objects.filter(pk=account_id).first()
@@ -95,8 +95,10 @@ class BalanceView(APIView):
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        except WrongUserId as user_err:
-            return Response(user_err.default_detail, status=status.HTTP_400_BAD_REQUEST)
+        except LowBalance as err:
+            return Response(err.default_detail, status=status.HTTP_400_BAD_REQUEST)
+        except WrongUserId as err:
+            return Response(err.default_detail, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as err:
             error_response = {"msg": "Internal Server Error", "error": str(err)}
@@ -114,7 +116,7 @@ class BalanceView(APIView):
                 raise WrongUserId
 
             # Serialize Account data
-            serializer = self.serializer_class(data=data)
+            serializer = self.serializer_class(data=data.__dict__)
             if serializer.is_valid(raise_exception=True):
                 return Response(serializer.data, status=status.HTTP_200_OK)
 

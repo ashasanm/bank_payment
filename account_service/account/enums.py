@@ -9,3 +9,7 @@ class DepositAmountEnum(Enum):
 class TaxEnum(Enum):
     """Tax Enum"""
     TAX_ID_LENGTH = 6
+
+class BalanceEnum(Enum):
+    """BALANCE ENUM"""
+    MINIMUM_BALANCE = 10

@@ -25,6 +25,7 @@ class CreateAccountSerializer(serializers.ModelSerializer):
         AccountValidator.check_account_phone_and_tax(
             phone_number=attrs["phone_number"], tax_id=attrs["tax_id"]
         )
+        AccountValidator.validate_inital_deposit(attrs["deposit_amount"])
 
         return attrs
 
@@ -54,7 +55,7 @@ class BalanceSerializer(serializers.ModelSerializer):
     def to_representation(self, data):
         """Reformat Account data format"""
         account_detail = {
-            "total balance": data["total_balance"],
+            "total_balance": data["total_balance"],
             "name": data["name"],
             "email": data["email_address"],
             "address": data["address"],
@@ -75,11 +76,13 @@ class BalanceUpdateSerializer(serializers.Serializer):
     transaction_amount = serializers.FloatField()
 
     def update(self, instance, validated_data):
-        # Serialize Account data
+        # Check current account balance
+        AccountValidator.validate_account_balance(instance.total_balance)
+
         if validated_data["transaction_type"] == "withdraw":
-            instance.total_balance -= validated_data["transaction_amount"]
+            instance.total_balance -= float(validated_data["transaction_amount"])
         elif validated_data["transaction_type"] == "deposit":
-            instance.total_balance += validated_data["transaction_amount"]
+            instance.total_balance += float(validated_data["transaction_amount"])
         instance.name = validated_data.get("balance", instance.name)
         return instance
 

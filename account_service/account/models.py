@@ -12,9 +12,7 @@ class Account(models.Model):
     )
     account_number = models.CharField(max_length=200)
     name = models.CharField(max_length=25)
-    total_balance = models.FloatField(
-        validators=[AccountValidator.validate_inital_deposit]
-    )
+    total_balance = models.FloatField()
     phone_number = models.CharField(max_length=30)
     tax_id = models.CharField(
         max_length=6, validators=[AccountValidator.validate_tax_id]

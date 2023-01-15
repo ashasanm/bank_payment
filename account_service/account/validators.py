@@ -1,9 +1,8 @@
 import account.models
 from django.db.models import Q
 
-from .enums import DepositAmountEnum, TaxEnum
-from .exceptions import AlreadyExist, InvalidTaxId, LowInitalDeposit
-
+from .enums import DepositAmountEnum, TaxEnum, BalanceEnum
+from .exceptions import AlreadyExist, InvalidTaxId, LowInitalDeposit, LowBalance
 
 class AccountValidator:
     """Account Validator"""
@@ -32,3 +31,8 @@ class AccountValidator:
             raise AlreadyExist
         except account.models.Account.DoesNotExist:
             return None
+    
+    @classmethod
+    def validate_account_balance(cls, value):
+        if value < BalanceEnum.MINIMUM_BALANCE.value:
+            raise LowBalance
