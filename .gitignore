@@ -132,3 +132,5 @@ dmypy.json
 **/data/db
 **migrations
 !**migrations/__init__.py
+
+**.vscode
